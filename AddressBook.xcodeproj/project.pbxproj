@@ -103,10 +103,10 @@
 		F7FB3DE327163FDB0091D1B1 /* AddressBook */ = {
 			isa = PBXGroup;
 			children = (
-				F7040FF52716526500B913AC /* Resourses */,
-				F7FB3DFC271643B70091D1B1 /* Models */,
-				F7040FF32716522700B913AC /* ModelController */,
 				F7040FF42716524300B913AC /* ViewControllers */,
+				F7040FF32716522700B913AC /* ModelController */,
+				F7FB3DFC271643B70091D1B1 /* Models */,
+				F7040FF52716526500B913AC /* Resourses */,
 			);
 			path = AddressBook;
 			sourceTree = "<group>";

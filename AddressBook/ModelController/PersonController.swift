@@ -32,17 +32,14 @@ class PersonContoller {
     
     static func toggleIsFavorite(person: Person) {
         person.isFavorite.toggle()
-        saveToPersistentStore()
-        
+       
     }
     
     // MARK: - Persistence
     func saveToPersistentStore() {
-        guard let url = fileURL else {return}
-    }
     
-    
-    
+        }
+        
     
     
     
