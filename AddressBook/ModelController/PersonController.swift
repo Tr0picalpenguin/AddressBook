@@ -29,4 +29,22 @@ class PersonContoller {
         person.address = address
         GroupController.shared.saveContactsToDisk()
     }
-}
+    
+    static func toggleIsFavorite(person: Person) {
+        person.isFavorite.toggle()
+        saveToPersistentStore()
+        
+    }
+    
+    // MARK: - Persistence
+    func saveToPersistentStore() {
+        guard let url = fileURL else {return}
+    }
+    
+    
+    
+    
+    
+    
+    
+} // End of Class
