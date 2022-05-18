@@ -49,10 +49,12 @@ class PersonDetailViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func favoriteImageButtonTapped(_ sender: Any) {
-        guard let person = person else {return}
-        PersonContoller.toggleIsFavorite(person: person)
-        updateFavoriteButton()
-    }
+    @IBAction func favoriteButtonTapped(_ sender: Any) {
+            guard let person = person else {return}
+            PersonContoller.toggleIsFavorite(person: person)
+            updateFavoriteButton()
+        }
+        
+    
     
 } // End of Class

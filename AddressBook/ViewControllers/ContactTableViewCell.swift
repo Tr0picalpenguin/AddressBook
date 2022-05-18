@@ -13,8 +13,9 @@ protocol PersonTableViewCellDelegate: AnyObject {
 
 class ContactTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var contactNameLabel: UILabel!
+
     @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var nameLabel: UILabel!
     
     
     
@@ -32,12 +33,11 @@ class ContactTableViewCell: UITableViewCell {
     // MARK: - Helper Functions
     func updateViews() {
         guard let person = person else {return}
-        contactNameLabel.text = person.name
-        if person.isFavorite == true {
-            favoriteButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        } else {
-            favoriteButton.setImage(UIImage(systemName: "star"), for: .normal)
-        }
+        nameLabel.text = person.name
+        let favoriteImageNamed = person.isFavorite ? "star.fill" : "star"
+        let favoriteImage = UIImage(systemName: favoriteImageNamed)
+        favoriteButton.setImage(favoriteImage, for: .normal)
+       
     }
     
     

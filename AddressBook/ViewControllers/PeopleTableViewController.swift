@@ -10,6 +10,8 @@ import UIKit
 class PeopleTableViewController: UITableViewController {
     
     @IBOutlet weak var groupNameTextField: UITextField!
+    @IBOutlet weak var favoritesOnlyToggle: UISwitch!
+
     
     var group: Group?
 
@@ -31,22 +33,40 @@ class PeopleTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return group?.people.count ?? 0
+        if favoritesOnlyToggle.isOn {
+            return filteredPeople.count
+        } else {
+            return group?.people.count ?? 0
+        }
+           
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PersonCell", for: indexPath)
-        let person = group?.people[indexPath.row]
-        cell.textLabel?.text = person?.name
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PersonCell", for: indexPath) as? ContactTableViewCell else { return UITableViewCell()}
+        
+        if favoritesOnlyToggle.isOn {
+            let person = filteredPeople[indexPath.row]
+            cell.person = person
+        } else {
+            let person = group?.people[indexPath.row]
+            cell.person = person
+        }
+        cell.delegate = self
         return cell
     }
-    
+
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             guard let group = group else { return }
+            if favoritesOnlyToggle.isOn {
+                let person = filteredPeople[indexPath.row]
+                PersonContoller.delete(person: person, in: group)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
             let person = group.people[indexPath.row]
             PersonContoller.delete(person: person, in: group)
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            
         }
     }
 
@@ -56,6 +76,10 @@ class PeopleTableViewController: UITableViewController {
               let personDetailViewController = segue.destination as? PersonDetailViewController,
               let selectedRow = tableView.indexPathForSelectedRow?.row
         else { return }
+        if favoritesOnlyToggle.isOn {
+            let person = filteredPeople[selectedRow]
+            personDetailViewController.person = person
+        }
         let person = group?.people[selectedRow]
         personDetailViewController.person = person
     }
@@ -65,5 +89,27 @@ class PeopleTableViewController: UITableViewController {
         guard let group = group else { return }
         PersonContoller.createPerson(group: group)
         tableView.reloadData()
+    }
+ 
+    @IBAction func favoritesOnlyToggle(_ sender: Any) {
+        tableView.reloadData()
+    }
+    
+    private var filteredPeople: [Person] {
+        if favoritesOnlyToggle.isOn {
+            return group?.people.filter { $0.isFavorite } ?? []
+        } else {
+            return group?.people ?? []
+        }
+    }
+
+    
+} // End of Class
+
+extension PeopleTableViewController: PersonTableViewCellDelegate {
+    func toggleFavoriteButtonWasTapped(cell: ContactTableViewCell) {
+        guard let person = cell.person else {return}
+        PersonContoller.toggleIsFavorite(person: person)
+        cell.updateViews()
     }
 }
