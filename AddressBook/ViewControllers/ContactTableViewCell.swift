@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ContactTableViewCellDelegate: AnyObject {
+protocol PersonTableViewCellDelegate: AnyObject {
     func toggleFavoriteButtonWasTapped(cell: ContactTableViewCell)
 }
 
@@ -27,7 +27,7 @@ class ContactTableViewCell: UITableViewCell {
     }
     
  
-    weak var delegate: ContactTableViewCellDelegate?
+    weak var delegate: PersonTableViewCellDelegate?
     
     // MARK: - Helper Functions
     func updateViews() {
@@ -44,8 +44,8 @@ class ContactTableViewCell: UITableViewCell {
     
     
     // MARK: - Actions
-    @IBAction func favoriteButtonTapped(_ sender: Any) {
-    
+    @IBAction func favoriteButtonTapped(_ sender: UIButton) {
+        delegate?.toggleFavoriteButtonWasTapped(cell: self)
     }
     
 } // End of Class

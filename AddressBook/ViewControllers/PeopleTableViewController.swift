@@ -10,6 +10,7 @@ import UIKit
 class PeopleTableViewController: UITableViewController {
     
     @IBOutlet weak var groupNameTextField: UITextField!
+    
     var group: Group?
 
     // MARK: - Lifecycle Methods
