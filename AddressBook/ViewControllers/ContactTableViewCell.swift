@@ -17,8 +17,6 @@ class ContactTableViewCell: UITableViewCell {
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     
-    
-    
     // MARK: Properties
     
     var person: Person? {
@@ -27,7 +25,6 @@ class ContactTableViewCell: UITableViewCell {
         }
     }
     
- 
     weak var delegate: PersonTableViewCellDelegate?
     
     // MARK: - Helper Functions
@@ -37,15 +34,10 @@ class ContactTableViewCell: UITableViewCell {
         let favoriteImageNamed = person.isFavorite ? "star.fill" : "star"
         let favoriteImage = UIImage(systemName: favoriteImageNamed)
         favoriteButton.setImage(favoriteImage, for: .normal)
-       
     }
-    
-    
-    
     
     // MARK: - Actions
     @IBAction func favoriteButtonTapped(_ sender: UIButton) {
         delegate?.toggleFavoriteButtonWasTapped(cell: self)
-    }
-    
+    }    
 } // End of Class

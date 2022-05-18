@@ -35,10 +35,7 @@ class PersonDetailViewController: UIViewController {
         let favoriteImageName = person.isFavorite == true ? "star.fill" : "star"
         let favoriteImage = UIImage(systemName: favoriteImageName)
         favoriteImageButton.image = favoriteImage
-        
-        
     }
-    
     
     // MARK: - IBActions
     @IBAction func saveButtonTapped(_ sender: Any) {
@@ -50,11 +47,8 @@ class PersonDetailViewController: UIViewController {
     }
     
     @IBAction func favoriteButtonTapped(_ sender: Any) {
-            guard let person = person else {return}
-            PersonContoller.toggleIsFavorite(person: person)
-            updateFavoriteButton()
-        }
-        
-    
-    
+        guard let person = person else {return}
+        PersonContoller.toggleIsFavorite(person: person)
+        updateFavoriteButton()
+    }
 } // End of Class

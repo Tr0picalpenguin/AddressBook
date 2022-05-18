@@ -38,7 +38,6 @@ class PeopleTableViewController: UITableViewController {
         } else {
             return group?.people.count ?? 0
         }
-           
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -66,22 +65,22 @@ class PeopleTableViewController: UITableViewController {
             let person = group.people[indexPath.row]
             PersonContoller.delete(person: person, in: group)
             tableView.deleteRows(at: [indexPath], with: .automatic)
-            
         }
     }
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == "toPersonDetail",
+        guard segue.identifier == "toPersonDetailViewController",
               let personDetailViewController = segue.destination as? PersonDetailViewController,
               let selectedRow = tableView.indexPathForSelectedRow?.row
         else { return }
         if favoritesOnlyToggle.isOn {
             let person = filteredPeople[selectedRow]
             personDetailViewController.person = person
+        } else {
+            let person = group?.people[selectedRow]
+            personDetailViewController.person = person
         }
-        let person = group?.people[selectedRow]
-        personDetailViewController.person = person
     }
     
     // MARK: - Actions
@@ -102,8 +101,6 @@ class PeopleTableViewController: UITableViewController {
             return group?.people ?? []
         }
     }
-
-    
 } // End of Class
 
 extension PeopleTableViewController: PersonTableViewCellDelegate {

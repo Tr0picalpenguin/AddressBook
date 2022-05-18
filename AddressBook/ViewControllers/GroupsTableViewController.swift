@@ -52,5 +52,5 @@ class GroupsTableViewController: UITableViewController {
         groupController.createContactGroup()
         tableView.reloadData()
     }
-    
-}
+} // End of Class
+
